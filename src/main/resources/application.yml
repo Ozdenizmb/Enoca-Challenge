@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: enoca-challenge
+  profiles:
+    active: local

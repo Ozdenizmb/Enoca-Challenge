@@ -1,0 +1,32 @@
+server:
+  port: 9001
+  shutdown: graceful
+  netty:
+    connection-timeout: 2s
+    idle-timeout: 15s
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce_db
+    username: postgres
+    password: 159753
+    pool:
+      max-create-connection-time: 2s
+      initial-size: 5
+      max-size: 10
+
+## OpenApi Settings ##
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: "/docs/swagger-ui.html"
+
+openapi:
+  app:
+    title: "Enoca Challenge"
+    description: "This project is a challenge project provided for the JAVA Developer - CX position recruitment at Enoca Company."
+    version: 1.0
+    contact : "Contact Support"
+    email: "info@baranozdeniz.com"
+    licence: "Ozdeniz 1.0"
+    url: "https://baranozdeniz.com/"
