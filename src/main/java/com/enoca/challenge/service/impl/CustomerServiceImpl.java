@@ -72,6 +72,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Page<CustomerDto> getCustomers(Pageable pageable) {
         Page<Customer> costumers = repository.findAll(pageable);
+
+        if(costumers.isEmpty()) {
+            throw EnocaException.withStatusAndMessage(HttpStatus.NOT_FOUND, ErrorMessages.CUSTOMER_NOT_FOUND);
+        }
+
         return PageMapperHelper.mapEntityPageToDtoPage(costumers, mapper);
     }
 

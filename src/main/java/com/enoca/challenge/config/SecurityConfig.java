@@ -33,6 +33,13 @@ public class SecurityConfig {
             "/api/v1/customers/login/{email}",
             "/api/v1/customers/get/{email}",
             "/api/v1/customers/get",
+            "/api/v1/products/create",
+            "/api/v1/products/get/{productId}",
+            "/api/v1/products/get",
+            "/api/v1/products/get/name/{name}",
+            "/api/v1/products/get/category/{category}",
+            "/api/v1/products/update/{productId}",
+            "/api/v1/products/delete/{productId}"
     };
 
     private static final String[] CUSTOMER_ENDPOINTS = {
