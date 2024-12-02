@@ -44,7 +44,10 @@ public class SecurityConfig {
 
     private static final String[] CUSTOMER_ENDPOINTS = {
             "/api/v1/customers/update/{id}",
-            "/api/v1/customers/delete/{id}"
+            "/api/v1/customers/delete/{id}",
+            "/api/v1/carts/get/{customerId}",
+            "/api/v1/carts/add/{customerId}",
+            "/api/v1/carts/remove/{customerId}"
     };
 
     @Bean

@@ -16,4 +16,6 @@ public class ErrorMessages {
 
     public static final String PRODUCT_NOT_FOUND = "Product not found!";
 
+    public static final String CART_NOT_FOUND = "Cart not found!";
+
 }
