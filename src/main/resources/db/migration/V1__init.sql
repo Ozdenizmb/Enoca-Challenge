@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS util_sch.customer_data
     password                  VARCHAR NOT NULL,
     phone                     VARCHAR,
     address                   VARCHAR,
+    cart_id                   uuid UNIQUE,
     created_date              DATE NOT NULL,
     updated_date              DATE NOT NULL,
     PRIMARY KEY (id)

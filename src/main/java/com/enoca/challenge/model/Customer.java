@@ -2,21 +2,26 @@ package com.enoca.challenge.model;
 
 import com.enoca.challenge.model.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "customer_data", schema = "util_sch")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer extends BaseEntity {
@@ -37,5 +42,12 @@ public class Customer extends BaseEntity {
     private String phone;
     @Column(name = "address")
     private String address;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id", nullable = false)
+    private Cart cart;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
 }

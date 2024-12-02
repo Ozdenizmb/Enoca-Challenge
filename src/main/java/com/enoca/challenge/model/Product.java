@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "product_data", schema = "util_sch")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product extends BaseEntity {

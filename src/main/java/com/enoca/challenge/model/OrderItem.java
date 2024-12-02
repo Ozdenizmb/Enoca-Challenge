@@ -2,42 +2,40 @@ package com.enoca.challenge.model;
 
 import com.enoca.challenge.model.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "order_data", schema = "util_sch")
+@Table(name = "order_item_data", schema = "util_sch")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Order extends BaseEntity {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
-    @Column(name = "total_price")
-    private double totalPrice;
+    @Column(name = "quantity")
+    private int quantity;
 
 }
