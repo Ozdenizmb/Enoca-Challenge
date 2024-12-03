@@ -65,6 +65,6 @@ public interface CartApi {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @PutMapping(value = "/remove/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<CartDto> RemoveProductFromCart(@PathVariable UUID customerId, @RequestBody @Valid RemoveProductDto removeProductDto);
+    ResponseEntity<?> RemoveProductFromCart(@PathVariable UUID customerId, @RequestBody @Valid RemoveProductDto removeProductDto);
 
 }

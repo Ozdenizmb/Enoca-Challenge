@@ -44,7 +44,7 @@ public class Customer extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cart_id")
     @JsonIgnore
     private Cart cart;

@@ -28,8 +28,16 @@ public class CartController implements CartApi {
     }
 
     @Override
-    public ResponseEntity<CartDto> RemoveProductFromCart(UUID customerId, RemoveProductDto removeProductDto) {
-        return ResponseEntity.ok(service.RemoveProductFromCart(customerId, removeProductDto));
+    public ResponseEntity<?> RemoveProductFromCart(UUID customerId, RemoveProductDto removeProductDto) {
+        CartDto cartDto = service.RemoveProductFromCart(customerId, removeProductDto);
+
+        if (cartDto != null) {
+            return ResponseEntity.ok(cartDto);
+        }
+        else {
+            return ResponseEntity.ok().body("CART DELETED");
+        }
+
     }
 
 }

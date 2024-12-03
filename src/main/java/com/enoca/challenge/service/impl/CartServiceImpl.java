@@ -110,7 +110,48 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartDto RemoveProductFromCart(UUID customerId, RemoveProductDto removeProductDto) {
-        return null;
+        Optional<Cart> responseCart = repository.findByCustomerId(customerId);
+
+        if(responseCart.isEmpty()) {
+            throw EnocaException.withStatusAndMessage(HttpStatus.BAD_REQUEST, ErrorMessages.PRODUCT_CANNOT_DELETE_FOR_CART_NOTFOUND);
+        }
+
+        Cart cart = responseCart.get();
+        if (cart.getItems() == null) {
+            cart.setItems(new ArrayList<>());
+        }
+        Optional<CartItem> existingItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(removeProductDto.productId()))
+                .findFirst();
+
+        if(existingItem.isEmpty()) {
+            throw EnocaException.withStatusAndMessage(HttpStatus.BAD_REQUEST, ErrorMessages.PRODUCT_NOT_FOUND_IN_CART);
+        }
+
+        CartItem cartItem = existingItem.get();
+
+        if(cartItem.getQuantity() - removeProductDto.quantity() <= 0) {
+            // delete cart ıtem data
+            cart.getItems().remove(cartItem);
+        }
+        else {
+            // reduce quantity count
+            cartItem.setQuantity(cartItem.getQuantity() - removeProductDto.quantity());
+        }
+
+        if(cart.getItems().isEmpty()) {
+            cart.getCustomer().setCart(null);
+            repository.delete(cart);
+            return null;
+        }
+        else {
+            double totalPrice = cart.getItems().stream()
+                    .mapToDouble(item -> item.getQuantity() * item.getProduct().getPrice())
+                    .sum();
+            cart.setTotalPrice(totalPrice);
+            return mapper.toDto(repository.save(cart));
+        }
+
     }
 
 }
