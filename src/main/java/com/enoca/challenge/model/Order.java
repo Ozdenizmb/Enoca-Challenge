@@ -21,7 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(exclude = "customer", callSuper = false)
 @Table(name = "order_data", schema = "util_sch")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order extends BaseEntity {

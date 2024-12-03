@@ -42,16 +42,6 @@ public class CartServiceImpl implements CartService {
         return mapper.toDto(responseCart.get());
     }
 
-    private void restockRemovedItems(UUID productId, int quantity) {
-        Optional<Product> responseProduct = productRepository.findById(productId);
-
-        if(responseProduct.isPresent()) {
-            Product product = responseProduct.get();
-            product.setStock(product.getStock() + quantity);
-            productRepository.save(product);
-        }
-    }
-
     @Override
     public void emptyCart(UUID customerId) {
         Optional<Cart> responseCart = repository.findByCustomerId(customerId);
@@ -61,10 +51,6 @@ public class CartServiceImpl implements CartService {
         }
 
         Cart cart = responseCart.get();
-
-        for(CartItem cartItem : cart.getItems()) {
-            restockRemovedItems(cartItem.getProduct().getId(), cartItem.getQuantity());
-        }
 
         cart.getItems().clear();
         cart.getCustomer().setCart(null);
@@ -110,12 +96,7 @@ public class CartServiceImpl implements CartService {
                 .sum();
         cart.setTotalPrice(totalPrice);
 
-        Cart saveCart = repository.save(cart);
-
-        product.setStock(product.getStock() - addProductDto.quantity());
-        productRepository.save(product);
-
-        return saveCart;
+        return repository.save(cart);
     }
 
     @Override
@@ -167,23 +148,19 @@ public class CartServiceImpl implements CartService {
         }
 
         CartItem cartItem = existingItem.get();
-        int restockQuantity;
 
         if(cartItem.getQuantity() - removeProductDto.quantity() <= 0) {
             // delete cart ıtem data
             cart.getItems().remove(cartItem);
-            restockQuantity = cartItem.getQuantity();
         }
         else {
             // reduce quantity count
             cartItem.setQuantity(cartItem.getQuantity() - removeProductDto.quantity());
-            restockQuantity = removeProductDto.quantity();
         }
 
         if(cart.getItems().isEmpty()) {
             cart.getCustomer().setCart(null);
             repository.delete(cart);
-            restockRemovedItems(removeProductDto.productId(), restockQuantity);
             return null;
         }
         else {
@@ -191,9 +168,7 @@ public class CartServiceImpl implements CartService {
                     .mapToDouble(item -> item.getQuantity() * item.getProduct().getPrice())
                     .sum();
             cart.setTotalPrice(totalPrice);
-            Cart saveCart = repository.save(cart);
-            restockRemovedItems(removeProductDto.productId(), restockQuantity);
-            return mapper.toDto(saveCart);
+            return mapper.toDto(repository.save(cart));
         }
 
     }

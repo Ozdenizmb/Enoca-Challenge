@@ -2,9 +2,9 @@ package com.enoca.challenge.dto;
 
 import java.util.UUID;
 
-public record CartItemForCartDto(
+public record ItemForTransactionDto(
         UUID id,
-        ProductForCartDto product,
+        ProductForTransactionDto product,
         Integer quantity
 ) {
 }
