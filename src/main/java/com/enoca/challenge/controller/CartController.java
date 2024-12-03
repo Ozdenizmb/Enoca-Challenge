@@ -23,19 +23,19 @@ public class CartController implements CartApi {
     }
 
     @Override
-    public ResponseEntity<String> EmptyCart(UUID customerId) {
-        service.EmptyCart(customerId);
+    public ResponseEntity<String> emptyCart(UUID customerId) {
+        service.emptyCart(customerId);
         return ResponseEntity.ok().body("{\"message\": \"Cart is empty\"}");
     }
 
     @Override
-    public ResponseEntity<CartDto> AddProductToCart(UUID customerId, AddProductDto addProductDto) {
-        return ResponseEntity.ok(service.AddProductToCart(customerId, addProductDto));
+    public ResponseEntity<CartDto> addProductToCart(UUID customerId, AddProductDto addProductDto) {
+        return ResponseEntity.ok(service.addProductToCart(customerId, addProductDto));
     }
 
     @Override
-    public ResponseEntity<?> RemoveProductFromCart(UUID customerId, RemoveProductDto removeProductDto) {
-        CartDto cartDto = service.RemoveProductFromCart(customerId, removeProductDto);
+    public ResponseEntity<?> removeProductFromCart(UUID customerId, RemoveProductDto removeProductDto) {
+        CartDto cartDto = service.removeProductFromCart(customerId, removeProductDto);
 
         if (cartDto != null) {
             return ResponseEntity.ok(cartDto);

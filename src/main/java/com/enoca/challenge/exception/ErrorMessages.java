@@ -24,4 +24,6 @@ public class ErrorMessages {
 
     public static final String PRODUCT_NOT_FOUND_IN_CART = "The product you want to remove from the cart could not be found.";
 
+    public static final String INSUFFICIENT_STOCK = "Insufficient stock available.";
+
 }

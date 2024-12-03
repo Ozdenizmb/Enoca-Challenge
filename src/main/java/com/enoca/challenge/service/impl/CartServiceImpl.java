@@ -42,8 +42,18 @@ public class CartServiceImpl implements CartService {
         return mapper.toDto(responseCart.get());
     }
 
+    private void restockRemovedItems(UUID productId, int quantity) {
+        Optional<Product> responseProduct = productRepository.findById(productId);
+
+        if(responseProduct.isPresent()) {
+            Product product = responseProduct.get();
+            product.setStock(product.getStock() + quantity);
+            productRepository.save(product);
+        }
+    }
+
     @Override
-    public void EmptyCart(UUID customerId) {
+    public void emptyCart(UUID customerId) {
         Optional<Cart> responseCart = repository.findByCustomerId(customerId);
 
         if(responseCart.isEmpty()) {
@@ -51,6 +61,10 @@ public class CartServiceImpl implements CartService {
         }
 
         Cart cart = responseCart.get();
+
+        for(CartItem cartItem : cart.getItems()) {
+            restockRemovedItems(cartItem.getProduct().getId(), cartItem.getQuantity());
+        }
 
         cart.getItems().clear();
         cart.getCustomer().setCart(null);
@@ -69,6 +83,10 @@ public class CartServiceImpl implements CartService {
         }
 
         Product product = responseProduct.get();
+
+        if(product.getStock() - addProductDto.quantity() < 0) {
+            throw EnocaException.withStatusAndMessage(HttpStatus.BAD_REQUEST, ErrorMessages.INSUFFICIENT_STOCK);
+        }
 
         // Check if the product already exists in the cart
         Optional<CartItem> existingItem = cart.getItems().stream()
@@ -92,11 +110,16 @@ public class CartServiceImpl implements CartService {
                 .sum();
         cart.setTotalPrice(totalPrice);
 
-        return repository.save(cart);
+        Cart saveCart = repository.save(cart);
+
+        product.setStock(product.getStock() - addProductDto.quantity());
+        productRepository.save(product);
+
+        return saveCart;
     }
 
     @Override
-    public CartDto AddProductToCart(UUID customerId, AddProductDto addProductDto) {
+    public CartDto addProductToCart(UUID customerId, AddProductDto addProductDto) {
         Optional<Cart> responseCart = repository.findByCustomerId(customerId);
 
         if(responseCart.isEmpty()) {
@@ -124,7 +147,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartDto RemoveProductFromCart(UUID customerId, RemoveProductDto removeProductDto) {
+    public CartDto removeProductFromCart(UUID customerId, RemoveProductDto removeProductDto) {
         Optional<Cart> responseCart = repository.findByCustomerId(customerId);
 
         if(responseCart.isEmpty()) {
@@ -144,19 +167,23 @@ public class CartServiceImpl implements CartService {
         }
 
         CartItem cartItem = existingItem.get();
+        int restockQuantity;
 
         if(cartItem.getQuantity() - removeProductDto.quantity() <= 0) {
             // delete cart ıtem data
             cart.getItems().remove(cartItem);
+            restockQuantity = cartItem.getQuantity();
         }
         else {
             // reduce quantity count
             cartItem.setQuantity(cartItem.getQuantity() - removeProductDto.quantity());
+            restockQuantity = removeProductDto.quantity();
         }
 
         if(cart.getItems().isEmpty()) {
             cart.getCustomer().setCart(null);
             repository.delete(cart);
+            restockRemovedItems(removeProductDto.productId(), restockQuantity);
             return null;
         }
         else {
@@ -164,7 +191,9 @@ public class CartServiceImpl implements CartService {
                     .mapToDouble(item -> item.getQuantity() * item.getProduct().getPrice())
                     .sum();
             cart.setTotalPrice(totalPrice);
-            return mapper.toDto(repository.save(cart));
+            Cart saveCart = repository.save(cart);
+            restockRemovedItems(removeProductDto.productId(), restockQuantity);
+            return mapper.toDto(saveCart);
         }
 
     }

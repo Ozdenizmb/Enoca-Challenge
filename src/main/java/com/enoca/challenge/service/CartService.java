@@ -9,8 +9,8 @@ import java.util.UUID;
 public interface CartService {
 
     CartDto getCart(UUID customerId);
-    void EmptyCart(UUID customerId);
-    CartDto AddProductToCart(UUID customerId, AddProductDto addProductDto);
-    CartDto RemoveProductFromCart(UUID customerId, RemoveProductDto removeProductDto);
+    void emptyCart(UUID customerId);
+    CartDto addProductToCart(UUID customerId, AddProductDto addProductDto);
+    CartDto removeProductFromCart(UUID customerId, RemoveProductDto removeProductDto);
 
 }

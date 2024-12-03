@@ -52,7 +52,7 @@ public interface CartApi {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @DeleteMapping(value = "/empty/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> EmptyCart(@PathVariable UUID customerId);
+    ResponseEntity<String> emptyCart(@PathVariable UUID customerId);
 
     @Operation(operationId = "AddProductToCart", summary = "Add product to cart")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = CartDto.class))),
@@ -65,7 +65,7 @@ public interface CartApi {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @PutMapping(value = "/add/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<CartDto> AddProductToCart(@PathVariable UUID customerId, @RequestBody @Valid AddProductDto addProductDto);
+    ResponseEntity<CartDto> addProductToCart(@PathVariable UUID customerId, @RequestBody @Valid AddProductDto addProductDto);
 
     @Operation(operationId = "RemoveProductFromCart", summary = "Remove product from cart")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = CartDto.class))),
@@ -78,6 +78,6 @@ public interface CartApi {
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @PutMapping(value = "/remove/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> RemoveProductFromCart(@PathVariable UUID customerId, @RequestBody @Valid RemoveProductDto removeProductDto);
+    ResponseEntity<?> removeProductFromCart(@PathVariable UUID customerId, @RequestBody @Valid RemoveProductDto removeProductDto);
 
 }
