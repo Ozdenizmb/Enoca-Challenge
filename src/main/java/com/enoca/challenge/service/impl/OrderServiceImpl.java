@@ -64,6 +64,12 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomer(cart.getCustomer());
         List<OrderItem> items = new ArrayList<>();
         for(CartItem item : cart.getItems()) {
+            if(item.getProduct().getStock() - item.getQuantity() <= 0) {
+                String errorMessages = "There is not enough stock available for the requested quantity of the "
+                        +item.getProduct().getName()+" product. Please update the items in your cart. Stock: "
+                        +item.getProduct().getStock();
+                throw EnocaException.withStatusAndMessage(HttpStatus.BAD_REQUEST, errorMessages);
+            }
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProduct(item.getProduct());
