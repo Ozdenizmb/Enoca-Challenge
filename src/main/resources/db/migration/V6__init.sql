@@ -7,8 +7,6 @@ CREATE TABLE IF NOT EXISTS util_sch.order_item_data
     order_id                  uuid NOT NULL,
     product_id                uuid NOT NULL,
     quantity                  int NOT NULL,
-    created_date              DATE NOT NULL,
-    updated_date              DATE NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES util_sch.order_data(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES util_sch.product_data(id) ON DELETE CASCADE

@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,6 +43,10 @@ public class CartServiceImpl implements CartService {
     }
 
     private Cart addProduct(Cart cart, AddProductDto addProductDto) {
+        if (cart.getItems() == null) {
+            cart.setItems(new ArrayList<>());
+        }
+
         Optional<Product> responseProduct = productRepository.findById(addProductDto.productId());
 
         if(responseProduct.isEmpty()) {

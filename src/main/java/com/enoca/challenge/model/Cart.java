@@ -1,7 +1,9 @@
 package com.enoca.challenge.model;
 
 import com.enoca.challenge.model.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +23,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(exclude = "customer", callSuper = false)
 @Table(name = "cart_data", schema = "util_sch")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cart extends BaseEntity {

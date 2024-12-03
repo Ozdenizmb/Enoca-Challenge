@@ -7,8 +7,6 @@ CREATE TABLE IF NOT EXISTS util_sch.cart_item_data
     cart_id                   uuid NOT NULL,
     product_id                uuid NOT NULL,
     quantity                  int NOT NULL,
-    created_date              DATE NOT NULL,
-    updated_date              DATE NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (cart_id) REFERENCES util_sch.cart_data(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES util_sch.product_data(id) ON DELETE CASCADE
