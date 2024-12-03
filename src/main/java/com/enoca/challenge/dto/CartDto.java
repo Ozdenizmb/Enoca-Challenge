@@ -6,7 +6,7 @@ import java.util.UUID;
 public record CartDto(
         UUID id,
         CustomerForTransactionDto customer,
-        List<ItemForTransactionDto> items,
+        List<ItemForCartDto> items,
         Double totalPrice
 ) {
 }

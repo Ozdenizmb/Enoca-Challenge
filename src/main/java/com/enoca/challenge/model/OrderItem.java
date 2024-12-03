@@ -34,6 +34,9 @@ public class OrderItem {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @Column(name = "order_product_unit_price")
+    private double orderProductUnitPrice;
+
     @Column(name = "quantity")
     private int quantity;
 

@@ -2,7 +2,7 @@ package com.enoca.challenge.dto;
 
 import java.util.UUID;
 
-public record ItemForTransactionDto(
+public record ItemForCartDto(
         UUID id,
         ProductForTransactionDto product,
         Integer quantity

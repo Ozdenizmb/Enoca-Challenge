@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS util_sch.order_item_data
     id                   uuid DEFAULT uuid_generate_v4(),
     order_id                  uuid NOT NULL,
     product_id                uuid NOT NULL,
+    order_product_unit_price  DOUBLE PRECISION NOT NULL,
     quantity                  int NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES util_sch.order_data(id) ON DELETE CASCADE,
