@@ -26,4 +26,8 @@ public class ErrorMessages {
 
     public static final String INSUFFICIENT_STOCK = "Insufficient stock available.";
 
+    public static final String ORDER_COULD_NOT_PLACE_CART_NOTFOUND = "The order could not be placed because the cart was not found.";
+
+    public static final String ORDER_NOT_FOUND = "The order could not be found.";
+
 }

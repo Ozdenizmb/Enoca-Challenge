@@ -47,7 +47,7 @@ public interface CustomerApi {
     @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UUID> addCustomer(@RequestBody @Valid CustomerCreateDto customerCreateDto);
 
-    @Operation(operationId = "loginCustomer", summary = "Login customer. (If correct values are sent to the Login method on the frontend, automatically perform the authorization process immediately afterward. /{AuthService})")
+    @Operation(operationId = "loginCustomer", summary = "Login customer. (If the login process is successful, place the email and password values into the request headers sent from the frontend. /{AuthService})")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = CustomerDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = Error.class))),
