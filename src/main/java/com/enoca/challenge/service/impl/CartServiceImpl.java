@@ -42,6 +42,21 @@ public class CartServiceImpl implements CartService {
         return mapper.toDto(responseCart.get());
     }
 
+    @Override
+    public void EmptyCart(UUID customerId) {
+        Optional<Cart> responseCart = repository.findByCustomerId(customerId);
+
+        if(responseCart.isEmpty()) {
+            throw EnocaException.withStatusAndMessage(HttpStatus.BAD_REQUEST, ErrorMessages.NO_CART_TO_EMPTY);
+        }
+
+        Cart cart = responseCart.get();
+
+        cart.getItems().clear();
+        cart.getCustomer().setCart(null);
+        repository.delete(cart);
+    }
+
     private Cart addProduct(Cart cart, AddProductDto addProductDto) {
         if (cart.getItems() == null) {
             cart.setItems(new ArrayList<>());

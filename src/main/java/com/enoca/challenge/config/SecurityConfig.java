@@ -46,6 +46,7 @@ public class SecurityConfig {
             "/api/v1/customers/update/{id}",
             "/api/v1/customers/delete/{id}",
             "/api/v1/carts/get/{customerId}",
+            "/api/v1/carts/empty/{customerId}",
             "/api/v1/carts/add/{customerId}",
             "/api/v1/carts/remove/{customerId}"
     };

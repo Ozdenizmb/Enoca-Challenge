@@ -18,6 +18,8 @@ public class ErrorMessages {
 
     public static final String CART_NOT_FOUND = "Cart not found!";
 
+    public static final String NO_CART_TO_EMPTY = "The cart to be emptied could not be found.";
+
     public static final String PRODUCT_CANNOT_DELETE_FOR_CART_NOTFOUND = "The cart where the product will be deleted could not be found.";
 
     public static final String PRODUCT_NOT_FOUND_IN_CART = "The product you want to remove from the cart could not be found.";

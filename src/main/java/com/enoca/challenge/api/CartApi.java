@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,6 +41,18 @@ public interface CartApi {
     })
     @GetMapping(value = "/get/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<CartDto> getCart(@PathVariable UUID customerId);
+
+    @Operation(operationId = "EmptyCart", summary = "Empty cart.")
+    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "No Content"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "405", description = "Method Not Allowed", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(schema = @Schema(implementation = Error.class)))
+    })
+    @DeleteMapping(value = "/empty/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<String> EmptyCart(@PathVariable UUID customerId);
 
     @Operation(operationId = "AddProductToCart", summary = "Add product to cart")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = CartDto.class))),

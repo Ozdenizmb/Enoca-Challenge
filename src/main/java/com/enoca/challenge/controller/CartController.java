@@ -23,6 +23,12 @@ public class CartController implements CartApi {
     }
 
     @Override
+    public ResponseEntity<String> EmptyCart(UUID customerId) {
+        service.EmptyCart(customerId);
+        return ResponseEntity.ok().body("{\"message\": \"Cart is empty\"}");
+    }
+
+    @Override
     public ResponseEntity<CartDto> AddProductToCart(UUID customerId, AddProductDto addProductDto) {
         return ResponseEntity.ok(service.AddProductToCart(customerId, addProductDto));
     }
@@ -35,7 +41,7 @@ public class CartController implements CartApi {
             return ResponseEntity.ok(cartDto);
         }
         else {
-            return ResponseEntity.ok().body("CART DELETED");
+            return ResponseEntity.ok().body("{\"message\": \"Cart deleted\"}");
         }
 
     }
