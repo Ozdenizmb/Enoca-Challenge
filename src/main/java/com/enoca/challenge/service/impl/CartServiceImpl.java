@@ -81,6 +81,9 @@ public class CartServiceImpl implements CartService {
 
         if(existingItem.isPresent()) {
             CartItem cartItem = existingItem.get();
+            if(product.getStock() - (cartItem.getQuantity()+addProductDto.quantity()) < 0) {
+                throw EnocaException.withStatusAndMessage(HttpStatus.BAD_REQUEST, ErrorMessages.INSUFFICIENT_STOCK);
+            }
             cartItem.setQuantity(cartItem.getQuantity() + addProductDto.quantity());
         }
         else {
