@@ -36,21 +36,27 @@ This repository is a challenge project provided for the JAVA Developer - CX posi
 </ul>
 
 <h2>Services</h2>
-![1](https://github.com/user-attachments/assets/b6333b9b-a382-490e-9f6d-11eaa63e1746)
+
+![Screenshot_1](https://github.com/user-attachments/assets/7736afa2-ba8e-4696-852e-d675c277a177)
 <br><br>
 
 <h3>Customer</h3>
-![Customer](https://github.com/user-attachments/assets/fd6e7ed2-523f-44eb-8837-5feb51e8fed8)
+
+![Screenshot_2](https://github.com/user-attachments/assets/15f78735-c64c-4526-bebf-6600146842f2)
 <br>
 
 <h3>Product</h3>
-![Product](https://github.com/user-attachments/assets/d0065998-1a6c-45d5-b07f-b1cdfef4d9b7)
+
+![Screenshot_3](https://github.com/user-attachments/assets/7b1423bd-8a25-44a4-9073-5ad6f86e6b07)
 <br>
 
 <h3>Cart</h3>
-![Cart](https://github.com/user-attachments/assets/424b3ed5-34ec-49cc-a1e0-72f06b86801a)
+
+![Screenshot_4](https://github.com/user-attachments/assets/acd0877e-932d-40fa-8f72-8508d5638141)
 <br>
 
 <h3>Order</h3>
-![Order](https://github.com/user-attachments/assets/0cc5662e-e27d-4f2a-8682-12cf87be549f)
+
+![Screenshot_5](https://github.com/user-attachments/assets/da0f0ad6-a721-45cb-babd-877f5fdaa061)
 <br>
+
