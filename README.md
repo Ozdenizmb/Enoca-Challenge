@@ -17,3 +17,24 @@ This repository is a challenge project provided for the JAVA Developer - CX posi
 <h3>3. Congratulations! You can now run the project 🎉</h3>
 
 <p>After running the project, you can navigate to "http://localhost:9001/docs/swagger-ui/index.html#/" to use the endpoints through the Swagger documentation.</p>
+
+<br><br><br><br><br><br>
+
+<h2>Technologies Used</h2>
+
+<ul>
+<li>Java 23</li>
+<li>Spring Boot 3.4.0</li>
+<li>Spring Data JPA</li>
+<li>Spring Security</li>
+<li>Postgresql</li>
+<li>Flyway</li>
+<li>Spring Starter Validation</li>
+<li>Springdoc Openapi Swagger</li>
+<li>Mapstruct</li>
+<li>Lombok</li>
+</ul>
+
+<h2>Services</h2>
+<br>
+
